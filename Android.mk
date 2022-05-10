@@ -17,15 +17,18 @@ LOCAL_PATH := $(call my-dir)
 include $(CLEAR_VARS)
 
 LOCAL_MODULE := thermal.$(TARGET_BOARD_PLATFORM)
+LOCAL_LICENSE_KINDS := SPDX-license-identifier-Apache-2.0 SPDX-license-identifier-BSD legacy_not_a_contribution
+LOCAL_LICENSE_CONDITIONS := by_exception_only not_allowed notice
+LOCAL_NOTICE_FILE := $(LOCAL_PATH)/LICENSE
 LOCAL_MODULE_RELATIVE_PATH := hw
 LOCAL_PROPRIETARY_MODULE := true
 
 LOCAL_SRC_FILES := thermal.c
 LOCAL_SRC_FILES += thermal_common.c
 
-ifeq ($(call is-board-platform-in-list,msm8998), true)
+ifneq (,$(call is-board-platform-in-list2,msm8998))
 LOCAL_SRC_FILES += thermal-8998.c
-else ifeq ($(call is-board-platform-in-list,sdm845), true)
+else ifneq (,$(call is-board-platform-in-list2,sdm845))
 LOCAL_SRC_FILES += thermal-845.c
 else
 LOCAL_SRC_FILES += thermal_target.c
